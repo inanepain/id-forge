@@ -24,3 +24,25 @@
 version: $Id$ ($Date$)
 
 {description}
+
+:leveloffset: +2
+
+= Install
+:author: Philip Michael Raab
+:email: <philip@cathedral.co.za>
+:experimental:
+:hide-uri-scheme:
+:icons: font
+:source-highlighter: highlight.js
+:sectnums: |,all|
+:toc: auto
+:sectanchors:
+
+[source,shell]
+----
+$ composer require {pkg-id}
+----
+
+:leveloffset!:
+
+<<<
