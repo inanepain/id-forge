@@ -1,4 +1,4 @@
-# inanepain/datetime
+# inanepain/id-forge
 # version: $Id$
 # date: $Date$
 
@@ -10,7 +10,7 @@
 set shell := ["zsh", "-cu"]
 set positional-arguments
 
-project := "inane\\datetime"
+project := "inane\\id-forge"
 
 # list recipes
 _default:
