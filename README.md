@@ -11,7 +11,7 @@ generation and encoding in modern applications.
 - Several ID generators (`UUIDv4`, `ULID`, `Nanoid`, Snowflake-like IDs)
   via a common `IdGeneratorInterface`
 
-- Simple configuration objects and factory helpers
+- Simple configuration of objects and factory helpers
 
 All examples target PHP 8.2+ (the codebase is PHP 8.4-ready). Namespaces
 are rooted under `Inane\IdForge`.
@@ -275,7 +275,7 @@ Usage
 
 Namespace: `Inane\IdForge\Generator\SnowflakeIdGenerator`
 
-- 64-bit composed numeric ID (as string): timestamp + datacenter +
+- 64-bit composed numeric ID (as a string): timestamp + datacenter +
   worker + sequence
 
 - Configured via `SnowflakeConfig` (epoch, bit allocations for
@@ -289,10 +289,10 @@ Namespace: `Inane\IdForge\Generator\SnowflakeIdGenerator`
 
 - `toEncoded(EncoderInterface $encoder): string`
 
-- Behavior: on sequence overflow within same millisecond, waits for next
-  millisecond
+- Behavior: on sequence overflow within the same millisecond, waits for
+  the next millisecond
 
-- Errors: `RuntimeException` if clock moves backwards;
+- Errors: `RuntimeException` if the clock moves backwards;
   `InvalidArgumentException` for out-of-range worker/datacenter
 
 Usage
@@ -607,5 +607,5 @@ Some examples
 
 - Nanoid: Short, URL-friendly IDs with controllable alphabet and size.
 
-- Snowflake: Numeric IDs composed from timestamp + worker/datacenter +
+- Snowflake: Numeric IDs composed of timestamp + worker/datacenter +
   sequence; good for distributed systems that need k-sortable numbers.
