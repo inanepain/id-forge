@@ -31,7 +31,7 @@ TIP: All examples target PHP 8.2+ (the codebase is PHP 8.4-ready). Namespaces ar
 
 <<<
 
-include::./doc/install.adoc[leveloffset=+1]
+include::./part/install.adoc[leveloffset=+1]
 
 <<<
 
@@ -55,23 +55,23 @@ $decoded = $base58->decode($encoded);
 
 == Modules
 
-include::./doc/encoders.adoc[leveloffset=+1]
+include::./part/encoders.adoc[leveloffset=+1]
 
 <<<
 
-include::./doc/generators.adoc[leveloffset=+1]
+include::./part/generators.adoc[leveloffset=+1]
 
 <<<
 
-include::./doc/config.adoc[leveloffset=+1]
+include::./part/config.adoc[leveloffset=+1]
 
 <<<
 
-include::./doc/factories.adoc[leveloffset=+1]
+include::./part/factories.adoc[leveloffset=+1]
 
 <<<
 
-include::./doc/example.adoc[leveloffset=+1]
+include::./part/example.adoc[leveloffset=+1]
 
 <<<
 
