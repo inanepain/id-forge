@@ -1,6 +1,6 @@
 {
     "name": "inanepain/id-forge",
-    "description": "A lightweight, versatile PHP library for generating and encoding unique identifiers. It supports base32, base58, base64, nanoid, snowflakeid, uuid, and ulid, providing fast, secure, and flexible solutions for ID generation and encoding in modern applications.",
+    "description": "A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure, and flexible solutions for modern applications.",
     "type": "library",
     "license": "Unlicense",
     "homepage": "https://git.cathedral.co.za:3000/inanepain/id-forge",

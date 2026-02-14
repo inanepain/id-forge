@@ -1,8 +1,9 @@
-= id-forge
+= inanepain/id-forge image:./icon.png[title=inanepain/id-forge,25]
 :author: Philip Michael Raab
 :email: <philip@cathedral.co.za>
+:description: A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure, and flexible solutions for modern applications.
 :keywords: inanepain, library, unique identifier, id generation, base32, base58, base64, nanoid, snowflakeid, uuid, ulid, php, encoding, cryptography
-:description: A lightweight, versatile PHP library for generating and encoding unique identifiers. It supports base32, base58, base64, nanoid, snowflakeid, uuid, and ulid, providing fast, secure, and flexible solutions for ID generation and encoding in modern applications.
+:homepage: https://github.com/inanepain/id-forge
 :revnumber: 0.1.0
 :revdate: 2025-10-29
 :copyright: Unlicense
