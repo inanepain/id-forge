@@ -34,20 +34,12 @@ TIP: All examples target PHP 8.2+ (the codebase is PHP 8.4-ready). Namespaces ar
 :leveloffset: +1
 
 = Install
-:author: Philip Michael Raab
-:email: <philip@cathedral.co.za>
-:experimental:
-:hide-uri-scheme:
-:icons: font
-:source-highlighter: highlight.js
-:sectnums: |,all|
-:toc: auto
-:sectanchors:
 
-[source,shell]
-====
-$ composer require {pkg-id}
-====
+.composer
+[source,shell,subs=attributes+]
+----
+composer require {pkg-id}
+----
 
 :leveloffset!:
 
