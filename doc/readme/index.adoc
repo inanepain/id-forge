@@ -75,6 +75,10 @@ include::./part/example.adoc[leveloffset=+1]
 
 <<<
 
+include::./part/uuidtool.adoc[leveloffset=+1]
+
+<<<
+
 == Error handling
 
 - Most decoders will throw `Inane\Stdlib\Exception\InvalidArgumentException` when the input contains invalid characters or cannot be parsed.

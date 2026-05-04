@@ -620,6 +620,50 @@ $nanoid = IdGeneratorFactory::createNanoid('0123456789abcdef', 12); // Hex-only,
 
 <<<
 
+:leveloffset: +1
+
+= UUIDTool
+
+Quickly create UUIDs.
+
+== Examples
+
+[source,php]
+----
+<?php
+
+declare(strict_types = 1);
+
+require_once '/Users/philip/Sites/inane-fw/vendor/autoload.php';
+
+use Inane\IdForge\UUIDTool;
+use Inane\Stdlib\Options;
+
+$namespace = '65eeece0-a2e2-11f0-8ead-a343ec01a981';
+$name = 'inane-fw';
+
+$ids = new Options();
+$ids->namespace = $namespace;
+$ids->name = $name;
+$ids->mac = UUIDTool::getMacAddress();
+$ids->v1 = ['UUID'=>UUIDTool::v1(), 'version' => null];
+$ids->v3 = ['UUID'=>UUIDTool::v3($namespace, $name), 'version' => null];
+$ids->v4 = ['UUID'=>UUIDTool::v4(), 'version' => null];
+$ids->v5 = ['UUID'=>UUIDTool::v5($namespace, $name), 'version' => null];
+$ids->v7 = ['UUID'=>UUIDTool::v7(), 'version' => null];
+$ids->v1->version = UUIDTool::getVersion($ids->v1->UUID);
+$ids->v3->version = UUIDTool::getVersion($ids->v3->UUID);
+$ids->v4->version = UUIDTool::getVersion($ids->v4->UUID);
+$ids->v5->version = UUIDTool::getVersion($ids->v5->UUID);
+$ids->v7->version = UUIDTool::getVersion($ids->v7->UUID);
+
+dd($ids);
+----
+
+:leveloffset!:
+
+<<<
+
 == Error handling
 
 - Most decoders will throw `Inane\Stdlib\Exception\InvalidArgumentException` when the input contains invalid characters or cannot be parsed.
