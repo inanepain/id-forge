@@ -5,7 +5,7 @@
  * Inane Encoder & ID Library
  * $Id$
  * $Date$
- * PHP version 8.4
+ * PHP version 8.5
  * Provides configuration values for encoders, primarily the alphabet and its
  * derived length.
  *

@@ -8,7 +8,7 @@
  * $Id$
  * $Date$
  *
- * PHP version 8.4
+ * PHP version 8.5
  *
  * @author Philip Michael Raab<philip@cathedral.co.za>
  * @package inanepain\id-forge
@@ -24,7 +24,9 @@ declare(strict_types=1);
 
 namespace Inane\IdForge\Generator;
 
-use Random\RandomException;/**
+use Random\RandomException;
+
+/**
  * Nanoid-like ID generator
  * Produces short, URL-friendly identifiers by mapping random bytes to a
  * configurable alphabet. Collisions are highly unlikely for typical sizes.
