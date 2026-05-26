@@ -8,7 +8,7 @@
  * $Id$
  * $Date$
  *
- * PHP version 8.4
+ * PHP version 8.5
  *
  * This file declares the `EncoderInterface`, a simple contract for
  * reversible string encoders used by IdForge. Implementations should be

@@ -106,14 +106,14 @@ $id = IdGeneratorFactory::createNanoid()->generate();
 
 Namespace: `Inane\IdForge\Generator\SnowflakeIdGenerator`
 
-- 64-bit composed numeric ID (as string): timestamp + datacenter + worker + sequence
+- 64-bit composed numeric ID (as a string): timestamp + datacenter + worker + sequence
 - Configured via `SnowflakeConfig` (epoch, bit allocations for worker/datacenter/sequence)
 - Methods:
   - `__construct(int $workerId = 0, int $datacenterId = 0, ?SnowflakeConfig $config = null)`
   - `generate(): string`
   - `toEncoded(EncoderInterface $encoder): string`
-- Behavior: on sequence overflow within same millisecond, waits for next millisecond
-- Errors: `RuntimeException` if clock moves backwards; `InvalidArgumentException` for out-of-range worker/datacenter
+- Behavior: on sequence overflow within the same millisecond, waits for the next millisecond
+- Errors: `RuntimeException` if the clock moves backwards; `InvalidArgumentException` for out-of-range worker/datacenter
 
 .Usage
 [source,php]

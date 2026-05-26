@@ -8,7 +8,7 @@
  * $Id$
  * $Date$
  *
- * PHP version 8.4
+ * PHP version 8.5
  *
  * Base class for ID generators, providing utilities for secure random bytes
  * generation and millisecond timestamps.

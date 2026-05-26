@@ -8,7 +8,7 @@
  * $Id$
  * $Date$
  *
- * PHP version 8.4
+ * PHP version 8.5
  *
  * This file declares the `IdGeneratorInterface`, a minimal contract for
  * generating unique identifiers as strings.

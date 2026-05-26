@@ -1,13 +1,13 @@
-= id-forge
+= inanepain/id-forge image:./icon.png[title=inanepain/id-forge,25]
 :author: Philip Michael Raab
 :email: <philip@cathedral.co.za>
+:description: A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure, and flexible solutions for modern applications.
 :keywords: inanepain, library, unique identifier, id generation, base32, base58, base64, nanoid, snowflakeid, uuid, ulid, php, encoding, cryptography
-:description: A lightweight, versatile PHP library for generating and encoding unique identifiers. It supports base32, base58, base64, nanoid, snowflakeid, uuid, and ulid, providing fast, secure, and flexible solutions for ID generation and encoding in modern applications.
+:homepage: https://github.com/inanepain/id-forge
 :revnumber: 0.1.0
 :revdate: 2025-10-29
 :copyright: Unlicense
 :experimental:
-:doctype: book
 :hide-uri-scheme:
 :icons: font
 :source-highlighter: highlight.js
@@ -25,13 +25,13 @@
 
 - Reversible encoders (`Base32`, `Base58`, `Base64`) via a common `EncoderInterface`
 - Several ID generators (`UUIDv4`, `ULID`, `Nanoid`, Snowflake-like IDs) via a common `IdGeneratorInterface`
-- Simple configuration objects and factory helpers
+- Simple configuration of objects and factory helpers
 
 TIP: All examples target PHP 8.2+ (the codebase is PHP 8.4-ready). Namespaces are rooted under `Inane\IdForge`.
 
 <<<
 
-include::./doc/install.adoc[leveloffset=+1]
+include::./part/install.adoc[leveloffset=+1]
 
 <<<
 
@@ -55,23 +55,27 @@ $decoded = $base58->decode($encoded);
 
 == Modules
 
-include::./doc/encoders.adoc[leveloffset=+1]
+include::./part/encoders.adoc[leveloffset=+1]
 
 <<<
 
-include::./doc/generators.adoc[leveloffset=+1]
+include::./part/generators.adoc[leveloffset=+1]
 
 <<<
 
-include::./doc/config.adoc[leveloffset=+1]
+include::./part/config.adoc[leveloffset=+1]
 
 <<<
 
-include::./doc/factories.adoc[leveloffset=+1]
+include::./part/factories.adoc[leveloffset=+1]
 
 <<<
 
-include::./doc/example.adoc[leveloffset=+1]
+include::./part/example.adoc[leveloffset=+1]
+
+<<<
+
+include::./part/uuidtool.adoc[leveloffset=+1]
 
 <<<
 
@@ -86,4 +90,4 @@ include::./doc/example.adoc[leveloffset=+1]
 - UUIDv4: Standard interoperable identifiers, not sortable, 36 chars.
 - ULID: 26-char, lexicographically sortable, timestamp + randomness; good for DB keys and logs.
 - Nanoid: Short, URL-friendly IDs with controllable alphabet and size.
-- Snowflake: Numeric IDs composed from timestamp + worker/datacenter + sequence; good for distributed systems that need k-sortable numbers.
+- Snowflake: Numeric IDs composed of timestamp + worker/datacenter + sequence; good for distributed systems that need k-sortable numbers.

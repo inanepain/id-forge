@@ -1,13 +1,13 @@
-= id-forge
+= inanepain/id-forge image:./icon.png[title=inanepain/id-forge,25]
 :author: Philip Michael Raab
 :email: <philip@cathedral.co.za>
+:description: A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure, and flexible solutions for modern applications.
 :keywords: inanepain, library, unique identifier, id generation, base32, base58, base64, nanoid, snowflakeid, uuid, ulid, php, encoding, cryptography
-:description: A lightweight, versatile PHP library for generating and encoding unique identifiers. It supports base32, base58, base64, nanoid, snowflakeid, uuid, and ulid, providing fast, secure, and flexible solutions for ID generation and encoding in modern applications.
+:homepage: https://github.com/inanepain/id-forge
 :revnumber: 0.1.0
 :revdate: 2025-10-29
 :copyright: Unlicense
 :experimental:
-:doctype: book
 :hide-uri-scheme:
 :icons: font
 :source-highlighter: highlight.js
@@ -25,7 +25,7 @@
 
 - Reversible encoders (`Base32`, `Base58`, `Base64`) via a common `EncoderInterface`
 - Several ID generators (`UUIDv4`, `ULID`, `Nanoid`, Snowflake-like IDs) via a common `IdGeneratorInterface`
-- Simple configuration objects and factory helpers
+- Simple configuration of objects and factory helpers
 
 TIP: All examples target PHP 8.2+ (the codebase is PHP 8.4-ready). Namespaces are rooted under `Inane\IdForge`.
 
@@ -34,20 +34,12 @@ TIP: All examples target PHP 8.2+ (the codebase is PHP 8.4-ready). Namespaces ar
 :leveloffset: +1
 
 = Install
-:author: Philip Michael Raab
-:email: <philip@cathedral.co.za>
-:experimental:
-:hide-uri-scheme:
-:icons: font
-:source-highlighter: highlight.js
-:sectnums: |,all|
-:toc: auto
-:sectanchors:
 
-[source,shell]
-====
-$ composer require {pkg-id}
-====
+.composer
+[source,shell,subs=attributes+]
+----
+composer require {pkg-id}
+----
 
 :leveloffset!:
 
@@ -296,14 +288,14 @@ $id = IdGeneratorFactory::createNanoid()->generate();
 
 Namespace: `Inane\IdForge\Generator\SnowflakeIdGenerator`
 
-- 64-bit composed numeric ID (as string): timestamp + datacenter + worker + sequence
+- 64-bit composed numeric ID (as a string): timestamp + datacenter + worker + sequence
 - Configured via `SnowflakeConfig` (epoch, bit allocations for worker/datacenter/sequence)
 - Methods:
   - `__construct(int $workerId = 0, int $datacenterId = 0, ?SnowflakeConfig $config = null)`
   - `generate(): string`
   - `toEncoded(EncoderInterface $encoder): string`
-- Behavior: on sequence overflow within same millisecond, waits for next millisecond
-- Errors: `RuntimeException` if clock moves backwards; `InvalidArgumentException` for out-of-range worker/datacenter
+- Behavior: on sequence overflow within the same millisecond, waits for the next millisecond
+- Errors: `RuntimeException` if the clock moves backwards; `InvalidArgumentException` for out-of-range worker/datacenter
 
 .Usage
 [source,php]
@@ -628,6 +620,50 @@ $nanoid = IdGeneratorFactory::createNanoid('0123456789abcdef', 12); // Hex-only,
 
 <<<
 
+:leveloffset: +1
+
+= UUIDTool
+
+Quickly create UUIDs.
+
+== Examples
+
+[source,php]
+----
+<?php
+
+declare(strict_types = 1);
+
+require_once '/Users/philip/Sites/inane-fw/vendor/autoload.php';
+
+use Inane\IdForge\UUIDTool;
+use Inane\Stdlib\Options;
+
+$namespace = '65eeece0-a2e2-11f0-8ead-a343ec01a981';
+$name = 'inane-fw';
+
+$ids = new Options();
+$ids->namespace = $namespace;
+$ids->name = $name;
+$ids->mac = UUIDTool::getMacAddress();
+$ids->v1 = ['UUID'=>UUIDTool::v1(), 'version' => null];
+$ids->v3 = ['UUID'=>UUIDTool::v3($namespace, $name), 'version' => null];
+$ids->v4 = ['UUID'=>UUIDTool::v4(), 'version' => null];
+$ids->v5 = ['UUID'=>UUIDTool::v5($namespace, $name), 'version' => null];
+$ids->v7 = ['UUID'=>UUIDTool::v7(), 'version' => null];
+$ids->v1->version = UUIDTool::getVersion($ids->v1->UUID);
+$ids->v3->version = UUIDTool::getVersion($ids->v3->UUID);
+$ids->v4->version = UUIDTool::getVersion($ids->v4->UUID);
+$ids->v5->version = UUIDTool::getVersion($ids->v5->UUID);
+$ids->v7->version = UUIDTool::getVersion($ids->v7->UUID);
+
+dd($ids);
+----
+
+:leveloffset!:
+
+<<<
+
 == Error handling
 
 - Most decoders will throw `Inane\Stdlib\Exception\InvalidArgumentException` when the input contains invalid characters or cannot be parsed.
@@ -639,4 +675,4 @@ $nanoid = IdGeneratorFactory::createNanoid('0123456789abcdef', 12); // Hex-only,
 - UUIDv4: Standard interoperable identifiers, not sortable, 36 chars.
 - ULID: 26-char, lexicographically sortable, timestamp + randomness; good for DB keys and logs.
 - Nanoid: Short, URL-friendly IDs with controllable alphabet and size.
-- Snowflake: Numeric IDs composed from timestamp + worker/datacenter + sequence; good for distributed systems that need k-sortable numbers.
+- Snowflake: Numeric IDs composed of timestamp + worker/datacenter + sequence; good for distributed systems that need k-sortable numbers.
