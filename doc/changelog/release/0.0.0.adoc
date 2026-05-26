@@ -1,8 +1,4 @@
-= 0.2.0-dev (2026 Xxx xx)
-:revnumber: 0.2.0
+= 0.3.0-dev (2026 Xxx xx)
+:revnumber: 0.3.0
 :revdate: 2026-xx-xx
 :revremark: -dev
-
-* *new*: Added `UUIDTool` for quick *UUID* (1,3,4,5,7) creation.
-* *update*: Encoders, add creating random string of a given length.
-* *update*: `Characters` to build a list of chars for encoders.

@@ -4,8 +4,8 @@
 :description: A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure, and flexible solutions for modern applications.
 :keywords: inanepain, library, unique identifier, id generation, base32, base58, base64, nanoid, snowflakeid, uuid, ulid, php, encoding, cryptography
 :homepage: https://github.com/inanepain/id-forge
-:revnumber: 0.1.0
-:revdate: 2025-10-29
+:revnumber: 0.2.0
+:revdate: 2026-05-26
 :copyright: Unlicense
 :experimental:
 :hide-uri-scheme:
