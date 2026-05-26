@@ -28,8 +28,18 @@ A small base class that stores an `EncoderConfig` and exposes helpers:
 
 - `getAlphabet(): string`
 - `getAlphabetLength(): int`
+- `random(int $length): string` — generates a cryptographically secure random string using the active alphabet
 
 Concrete encoders (Base32/58/64) extend this class.
+
+.Generate a random string with the encoder's alphabet
+[source,php]
+----
+use Inane\IdForge\EncoderFactory;
+
+$base58 = EncoderFactory::createBase58();
+$token  = $base58->random(22); // 22-char Base58 string
+----
 
 == Implementations
 

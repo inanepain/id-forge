@@ -3,7 +3,7 @@
     "description": "A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure, and flexible solutions for modern applications.",
     "type": "library",
     "license": "Unlicense",
-    "homepage": "https://git.cathedral.co.za:3000/inanepain/id-forge",
+    "homepage": "https://github.com/inanepain/id-forge",
     "readme": "README.adoc",
     "authors": [
         {
@@ -14,7 +14,7 @@
     ],
     "support": {
         "email": "philip@cathedral.co.za",
-        "issues": "https://git.cathedral.co.za:3000/inanepain"
+        "issues": "https://github.com/inanepain"
     },
     "keywords": [
         "inanepain",
@@ -45,8 +45,9 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.4",
-        "inanepain/stdlib": ">=0.7.1 || dev-master || dev-develop"
+        "php": ">=8.5",
+        "inanepain/stdlib": ">=0.9.0 || dev-master || dev-develop",
+        "ext-gmp": "*"
     },
     "require-dev": {},
     "scripts": {

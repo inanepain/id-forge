@@ -39,27 +39,27 @@ namespace Inane\IdForge\Interface;
  * representation and back again.
  */
 interface EncoderInterface {
-	/**
-	 * Encodes a binary-safe string to its textual representation.
-	 *
-	 * Implementations should be pure and must not modify the global state.
-	 *
-	 * @param string $data Arbitrary binary-safe input data
-	 *
-	 * @return string Encoded representation of the provided data
-	 */
-	public function encode(string $data): string;
+    /**
+     * Encodes a binary-safe string to its textual representation.
+     *
+     * Implementations should be pure and must not modify the global state.
+     *
+     * @param string $data Arbitrary binary-safe input data
+     *
+     * @return string Encoded representation of the provided data
+     */
+    public function encode(string $data): string;
 
-	/**
-	 * Decodes an encoded string back to its original binary data.
-	 *
-	 * Implementations should validate the input and are encouraged to throw a
-	 * domain-specific exception (e.g. `InvalidArgumentException`) if the value
-	 * cannot be decoded.
-	 *
-	 * @param string $data Encoded string to decode
-	 *
-	 * @return string Original binary-safe data
-	 */
-	public function decode(string $data): string;
+    /**
+     * Decodes an encoded string back to its original binary data.
+     *
+     * Implementations should validate the input and are encouraged to throw a
+     * domain-specific exception (e.g. `InvalidArgumentException`) if the value
+     * cannot be decoded.
+     *
+     * @param string $data Encoded string to decode
+     *
+     * @return string Original binary-safe data
+     */
+    public function decode(string $data): string;
 }

@@ -38,14 +38,14 @@ namespace Inane\IdForge\Interface;
  * concurrently. They should aim to be fast and have a very low collision risk.
  */
 interface IdGeneratorInterface {
-	/**
-	 * Generates a new identifier.
-	 *
-	 * Implementations should ensure that identifiers are highly unlikely to
-	 * collide within the expected usage scope, and must return a string even if
-	 * the underlying representation is numeric.
-	 *
-	 * @return string Newly generated identifier
-	 */
-	public function generate(): string;
+    /**
+     * Generates a new identifier.
+     *
+     * Implementations should ensure that identifiers are highly unlikely to
+     * collide within the expected usage scope, and must return a string even if
+     * the underlying representation is numeric.
+     *
+     * @return string Newly generated identifier
+     */
+    public function generate(): string;
 }

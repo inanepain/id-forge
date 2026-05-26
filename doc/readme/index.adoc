@@ -12,6 +12,7 @@
 :icons: font
 :source-highlighter: highlight.js
 :toc: left
+:sectnumlevels: 5
 :sectanchors:
 :idprefix: topic-
 :idseparator: -
@@ -51,6 +52,9 @@ $snow    = IdGeneratorFactory::createSnowflake(1, 2)->generate();
 $base58  = EncoderFactory::createBase58();
 $encoded = $base58->encode($ulid);
 $decoded = $base58->decode($encoded);
+
+// Generate a random Base58 token using the encoder's alphabet
+$token   = $base58->random(22);
 ----
 
 == Modules

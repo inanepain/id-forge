@@ -30,6 +30,9 @@ namespace Inane\IdForge\Generator;
 use Inane\IdForge\Interface\IdGeneratorInterface;
 use Random\RandomException;
 
+use function microtime;
+use function random_bytes;
+
 /**
  * Base class for ID generators
  *
@@ -37,25 +40,25 @@ use Random\RandomException;
  * generation and a millisecond-resolution timestamp.
  */
 abstract class AbstractIdGenerator implements IdGeneratorInterface {
-	/**
-	 * Returns cryptographically secure random bytes.
-	 *
-	 * @param int $length Number of bytes to generate
-	 *
-	 * @return string Raw binary string of random bytes
-	 *
-	 * @throws RandomException
-	 */
-	protected function getRandomBytes(int $length): string {
-		return random_bytes($length);
-	}
+    /**
+     * Returns cryptographically secure random bytes.
+     *
+     * @param int $length Number of bytes to generate
+     *
+     * @return string Raw binary string of random bytes
+     *
+     * @throws RandomException
+     */
+    protected function getRandomBytes(int $length): string {
+        return random_bytes($length);
+    }
 
-	/**
-	 * Returns the current UNIX timestamp in milliseconds.
-	 *
-	 * @return int Milliseconds since the UNIX epoch
-	 */
-	protected function getTimestamp(): int {
-		return (int)(microtime(true) * 1000);
-	}
+    /**
+     * Returns the current UNIX timestamp in milliseconds.
+     *
+     * @return int Milliseconds since the UNIX epoch
+     */
+    protected function getTimestamp(): int {
+        return (int)(microtime(true) * 1000);
+    }
 }
