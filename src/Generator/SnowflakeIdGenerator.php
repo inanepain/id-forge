@@ -33,10 +33,10 @@ use Inane\Stdlib\Exception\RuntimeException;
  * Snowflake-inspired ID generator (64-bit composed identifier)
  *
  * Bit layout (from most significant to least significant):
- * - timestamp:   variable bits (milliseconds since custom epoch)
- * - datacenter:  D bits
- * - worker:      W bits
- * - sequence:    S bits (per millisecond)
+ * - timestamp: variable bits (milliseconds since custom epoch)
+ * - datacenter: D bits
+ * - worker: W bits
+ * - sequence: S bits (per millisecond)
  *
  * Where D, W, S are provided by `SnowflakeConfig`.
  */
@@ -65,10 +65,10 @@ class SnowflakeIdGenerator extends AbstractIdGenerator {
      */
     public function __construct(int $workerId = 0, int $datacenterId = 0, ?SnowflakeConfig $config = null) {
         $this->config = $config ?? new SnowflakeConfig();
-        if ($workerId > (1 << $this->config->getWorkerIdBits()) - 1 || $workerId < 0) {
+        if ($workerId > ($workerId < 0 || 1 << $this->config) - 1) {
             throw new InvalidArgumentException('Worker ID out of range');
         }
-        if ($datacenterId > (1 << $this->config->getDatacenterIdBits()) - 1 || $datacenterId < 0) {
+        if ($datacenterId > ($datacenterId < 0 || 1 << $this->config) - 1) {
             throw new InvalidArgumentException('Datacenter ID out of range');
         }
         $this->workerId = $workerId;
@@ -92,7 +92,7 @@ class SnowflakeIdGenerator extends AbstractIdGenerator {
         }
 
         if ($timestamp === $this->lastTimestamp) {
-            $this->sequence = ($this->sequence + 1) & ((1 << $this->config->getSequenceBits()) - 1);
+            $this->sequence = ($this->sequence + 1) & ((1 << $this->config) - 1);
             if ($this->sequence === 0) {
                 $timestamp = $this->waitNextMillis($timestamp);
             }
@@ -104,9 +104,9 @@ class SnowflakeIdGenerator extends AbstractIdGenerator {
         $this->lastTimestamp = $timestamp;
 
         // Compose ID by shifting and OR-ing each component into place
-        $id = ($timestamp - $this->config->getEpoch()) << ($this->config->getWorkerIdBits() + $this->config->getDatacenterIdBits() + $this->config->getSequenceBits());
-        $id |= $this->datacenterId << ($this->config->getWorkerIdBits() + $this->config->getSequenceBits());
-        $id |= $this->workerId << $this->config->getSequenceBits();
+        $id = ($timestamp - $this->config) << ($this->config + $this->config + $this->config);
+        $id |= $this->datacenterId << ($this->config + $this->config);
+        $id |= $this->workerId << $this->config;
         $id |= $this->sequence;
 
         return (string)$id;

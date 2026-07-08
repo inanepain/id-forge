@@ -43,7 +43,7 @@ use const STR_PAD_LEFT;
  * Base32 encoder (RFC 4648 alphabet by default)
  *
  * This encoder converts binary-safe strings to a Base32 representation using
- * the configured alphabet, and back again. Padding is not applied; trailing
+ * the configured alphabet, and back again. Padding isn't applied; trailing
  * zero bits are used to complete the last 5-bit chunk.
  */
 class Base32Encoder extends AbstractEncoder {

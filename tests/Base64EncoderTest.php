@@ -90,7 +90,7 @@ final class Base64EncoderTest extends TestCase {
      */
     public function testDecodeThrowsOnInvalidBase64(): void {
         $this->expectException(InvalidArgumentException::class);
-        (new Base64Encoder(new EncoderConfig(Characters::base64())))->decode('!!notbase64!!');
+        new Base64Encoder(new EncoderConfig(Characters::base64()))->decode('!!notbase64!!');
     }
 
     /**
@@ -100,7 +100,7 @@ final class Base64EncoderTest extends TestCase {
      */
     public function testUrlDecodeThrowsOnInvalidBase64(): void {
         $this->expectException(InvalidArgumentException::class);
-        // invalid even after padding normalization
-        (new Base64Encoder(new EncoderConfig(Characters::base64())))->urlDecode('**__invalid__**');
+        // invalid even after padding normalisation
+        new Base64Encoder(new EncoderConfig(Characters::base64()))->urlDecode('**__invalid__**');
     }
 }

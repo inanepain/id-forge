@@ -40,7 +40,7 @@ use function str_split;
 use function strpos;
 
 /**
- * Base58 encoder using the configured alphabet (e.g., Bitcoin alphabet)
+ * Base58 encoder using the configured alphabet (e.g. Bitcoin alphabet)
  *
  * Base58 avoids visually ambiguous characters and is commonly used in
  * user-facing identifiers. Leading zero bytes are preserved as leading

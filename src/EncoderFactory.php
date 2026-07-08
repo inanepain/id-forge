@@ -48,7 +48,7 @@ class EncoderFactory {
     }
 
     /**
-     * Creates a Base58 encoder using Bitcoin alphabet (no 0,O,I,l).
+     * Creates a Base58 encoder using Bitcoin alphabet (no 0, O, I, l).
      *
      * @return Base58Encoder Configured Base58 encoder
      */

@@ -59,7 +59,10 @@ class UUIDGenerator extends AbstractIdGenerator {
         // Set variant (10xx) in the high bits of byte 8
         $bytes[8] = chr(ord($bytes[8]) & 0x3f | 0x80);
 
-        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($bytes), 4));
+        return $bytes
+                |> bin2hex(...)
+                |> (static fn($x) => str_split($x, 4))
+                |> (static fn($x) => vsprintf('%s%s-%s-%s-%s-%s%s%s', $x));
     }
 
     /**

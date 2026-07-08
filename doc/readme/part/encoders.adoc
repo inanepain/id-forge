@@ -9,7 +9,7 @@
 :toc: auto
 :sectanchors:
 
-This module provides reversible string encoders that share a simple contract, `EncoderInterface`. Implementations cover Base32, Base58, and Base64 (including a URL-safe variant).
+This module provides reversible string encoders that share a simple contract, `EncoderInterface`. Implementations cover Base32, Base58 and Base64 (including a URL-safe variant).
 
 == Contracts and base classes
 
@@ -49,7 +49,7 @@ Namespace: `Inane\IdForge\Encoder\Base32Encoder`
 
 - Alphabet: configurable (RFC 4648 by default when using `EncoderFactory::createBase32()`)
 - Padding: not applied; trailing zero bits are used to complete the last 5-bit group
-- Errors: throws `InvalidArgumentException` if a character is not in the alphabet during `decode()`
+- Errors: throws `InvalidArgumentException` if a character isn’t in the alphabet during `decode()`
 
 .Usage
 [source,php]

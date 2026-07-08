@@ -13,7 +13,7 @@
  * This file declares the `IdGeneratorInterface`, a minimal contract for
  * generating unique identifiers as strings.
  *
- * Implementations include UUID, ULID, Nanoid, and Snowflake-style IDs. The
+ * Implementations include UUID, ULID, Nanoid and Snowflake-style IDs. The
  * return type is a string to allow arbitrary encodings and numeric sizes that
  * exceed PHP's native integer range.
  *
@@ -42,7 +42,7 @@ interface IdGeneratorInterface {
      * Generates a new identifier.
      *
      * Implementations should ensure that identifiers are highly unlikely to
-     * collide within the expected usage scope, and must return a string even if
+     * collide within the expected usage scope and must return a string even if
      * the underlying representation is numeric.
      *
      * @return string Newly generated identifier

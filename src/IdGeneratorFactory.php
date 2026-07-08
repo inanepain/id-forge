@@ -36,7 +36,7 @@ use Inane\Stdlib\Exception\InvalidArgumentException;
  * Factory class for creating various types of ID generators
  *
  * This factory provides static methods to create different ID generator instances
- * including Nanoid, Snowflake, UUID, and ULID generators with customizable configurations.
+ * including Nanoid, Snowflake, UUID and ULID generators with customizable configurations.
  *
  * @package Inane\IdForge
  * @version 1.0.0
@@ -46,7 +46,7 @@ class IdGeneratorFactory {
      * Creates a new Nanoid generator instance
      *
      * Nanoid is a URL-friendly unique string ID generator that generates
-     * compact, secure, and collision-resistant identifiers.
+     * compact, secure and collision-resistant identifiers.
      *
      * @param string $alphabet The alphabet to use for generating IDs (default: alphanumeric)
      * @param int $size The length of generated IDs (default: 21 characters)
@@ -60,7 +60,7 @@ class IdGeneratorFactory {
     /**
      * Creates a new Snowflake ID generator instance
      * Snowflake IDs are 64-bit unique identifiers that incorporate timestamp,
-     * worker ID, and datacenter ID components for distributed systems.
+     * worker ID and datacenter ID components for distributed systems.
      *
      * @param int                  $workerId     Unique identifier for the worker node (0-31, default: 0)
      * @param int                  $datacenterId Unique identifier for the datacenter (0-31, default: 0)

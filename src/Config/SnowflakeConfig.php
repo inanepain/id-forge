@@ -12,7 +12,7 @@
  *
  * Configuration for Snowflake-style ID generation.
  *
- * Controls the custom epoch and the bit allocation for worker, datacenter, and
+ * Controls the custom epoch and the bit allocation for worker, datacenter and
  * sequence components.
  *
  * @author Philip Michael Raab<philip@cathedral.co.za>
@@ -32,17 +32,61 @@ namespace Inane\IdForge\Config;
 /**
  * Configuration class for generating Snowflake IDs.
  * This class defines the settings for the Snowflake algorithm, including the custom epoch and bit allocations
- * for worker ID, datacenter ID, and sequence.
+ * for worker ID, datacenter ID and sequence.
  */
 class SnowflakeConfig {
-    /** @var int Custom epoch in milliseconds */
-    protected int $epoch;
-    /** @var int Number of bits allocated for the worker ID */
-    protected int $workerIdBits;
-    /** @var int Number of bits allocated for the datacenter ID */
-    protected int $datacenterIdBits;
-    /** @var int Number of bits allocated for the per-millisecond sequence */
-    protected int $sequenceBits;
+    /**
+     * Represents an epoch in a temporal context.
+     *
+     * This property provides access to the current value representing
+     * a specific point or interval on the timescale used by this object.
+     *
+     * return int Custom epoch in milliseconds
+     */
+    public int $epoch {
+        get => $this->epoch;
+    }
+
+    /**
+     * Gets the number of bits allocated to uniquely identify a worker within this context.
+     *
+     * @return int The bit length used for identifying workers
+     */
+    public int $workerIdBits {
+        get => $this->workerIdBits;
+    }
+
+    /**
+     * Gets the value of datacenter ID bits.
+     *
+     * This property returns an integer representing specific settings related to a data center's identifier. These settings are crucial for ensuring that resources within different
+     * environments can be distinguished and managed correctly by software systems, particularly in cloud computing platforms or distributed architectures where multiple
+     * instances may exist across various physical locations.
+     *
+     * @return int The value of the datacenter ID bits as an integer representing specific configurations related to a data center's identifier.
+     */
+    public int $datacenterIdBits {
+        get => $this->datacenterIdBits;
+    }
+
+    /**
+     * Gets the sequence number for this entity or resource within its respective group/space allocated by other properties like datacenterId and instanceID.
+     *
+     * The 'sequence bits' property is often used in distributed systems to provide a unique identifier that combines with other identifiers such as
+     * Datacenter ID, Instance ID, etc. This helps ensure the uniqueness of an object across different clusters or regions when deployed on cloud platforms,
+     * multi-tenant environments or any scenario where resource allocation and identification are crucial for system scalability.
+     *
+     * The sequence number is typically a part of larger identifier components that collectively create unique identifiers ensuring minimal collision probabilities
+     * in distributed systems. It's essential to increment this value appropriately whenever new instances/objects/resources need to be created within the same group,
+     * space or environment, maintaining orderly and consistent sequencing which aids in resource management tasks like allocation tracking.
+     *
+     * @return int The sequence number as an integer representing a unique identifier for entities/reresources when combined with other properties
+     */
+    public int $sequenceBits {
+        get {
+            return $this->sequenceBits;
+        }
+    }
 
     /**
      * Constructor for initializing the class properties.
@@ -59,43 +103,5 @@ class SnowflakeConfig {
         $this->workerIdBits = $workerIdBits;
         $this->datacenterIdBits = $datacenterIdBits;
         $this->sequenceBits = $sequenceBits;
-    }
-
-    // Getters
-
-    /**
-     * Get Epoch
-     *
-     * @return int The epoch value.
-     */
-    public function getEpoch(): int {
-        return $this->epoch;
-    }
-
-    /**
-     * Get Worker ID Bits
-     *
-     * @return int The number of bits allocated for the worker ID.
-     */
-    public function getWorkerIdBits(): int {
-        return $this->workerIdBits;
-    }
-
-    /**
-     * Get Datacenter ID Bits
-     *
-     * @return int The value of datacenter ID bits.
-     */
-    public function getDatacenterIdBits(): int {
-        return $this->datacenterIdBits;
-    }
-
-    /**
-     * Get Sequence Bits
-     *
-     * @return int The sequence bits value.
-     */
-    public function getSequenceBits(): int {
-        return $this->sequenceBits;
     }
 }

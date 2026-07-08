@@ -25,6 +25,7 @@ declare(strict_types = 1);
 namespace Inane\IdForge;
 
 use Inane\Stdlib\Exception\InvalidArgumentException;
+use Random\RandomException;
 
 use function assert;
 use function bin2hex;
@@ -160,10 +161,8 @@ class UUIDTool {
                     } else { // once indent ends ots a new interface
                         $mac = null;
                     }
-                } else {
-                    if (preg_match('/([a-f0-9]{2}:){5}[a-f0-9]{2}/i', $line, $matches)) {
-                        $mac = $matches[0];
-                    }
+                } elseif (preg_match('/([a-f0-9]{2}:){5}[a-f0-9]{2}/i', $line, $matches)) {
+                    $mac = $matches[0];
                 }
             }
         }
@@ -223,17 +222,17 @@ class UUIDTool {
     /**
      * Generates a version 1 (time-based) UUID.
      *
-     * If a MAC address is provided, it will be used in the UUID generation.
-     * Otherwise, it will try being read from a system.
+     * If a MAC address is provided, it'll be used in the UUID generation.
+     * Otherwise, it'll try being read from a system.
      * Finally, a random MAC address will be used.
      *
      * @param string|null $mac Optional MAC address to use for UUID generation, null to use machine MAC address.
      *
      * @return string The generated UUID v1.
      *
-     * @throws \Random\RandomException
+     * @throws RandomException
      */
-    public static function v1(?string $mac = null) {
+    public static function v1(?string $mac = null): string {
         // Get the time in 100-nanosecond intervals since UUID epoch (1582-10-15)
         $time = microtime(true) * 10_000_000 + 0x01B21DD213814000;
 
@@ -297,20 +296,20 @@ class UUIDTool {
             (hexdec(substr($hashing, 12, 4)) & 0x0fff) | 0x3000, // 8 bits and 16 bits for the clk_seq_hi_res,
             // 8 bits for the clk_seq_low,
             (hexdec(substr($hashing, 16, 4)) & 0x3fff) | 0x8000, // 48 bits for the node
-            substr($hashing, 20, 12),);
+            substr($hashing, 20, 12));
     }
 
     /**
      * Generates a version 4 (random) UUID.
      *
-     * If a string is provided as $data, it will be used as the source of randomness.
+     * If a string is provided as $data, it'll be used as the source of randomness.
      * Otherwise, a random UUID will be generated.
      *
      * @param string|null $data Optional data to use for UUID generation.
      *
      * @return string The generated UUID v4 as a string.
      *
-     * @throws \Random\RandomException
+     * @throws RandomException
      */
     public static function v4(?string $data = null): string {
         if ($data) {
@@ -333,14 +332,14 @@ class UUIDTool {
         // Output the 36-character UUID.
         return $data
                 |> bin2hex(...)
-                |> (fn($x) => str_split($x, 4))
-                |> (fn($x) => vsprintf('%s%s-%s-%s-%s-%s%s%s', $x));
+                |> (static fn($x) => str_split($x, 4))
+                |> (static fn($x) => vsprintf('%s%s-%s-%s-%s-%s%s%s', $x));
     }
 
     /**
      * Generates a version 5 (namespace-based) UUID.
      *
-     * This method creates a UUID v5 using a namespace UUID and a name to generate a SHA-1 based UUID.
+     * This method creates a UUID v5 using a namespace UUID and a name to generate an SHA-1 based UUID.
      * The namespace UUID must be provided in a valid UUID format, and the
      * name is combined with the namespace for hashing to produce the UUID.
      *
@@ -376,7 +375,7 @@ class UUIDTool {
      *
      * @return string The generated UUIDv7 string.
      *
-     * @throws \Random\RandomException
+     * @throws RandomException
      */
     public static function v7(?int $milliseconds = null): string {
         static $last_timestamp = 0;
@@ -384,7 +383,7 @@ class UUIDTool {
         if ($milliseconds && strlen((string)$milliseconds) > 13) {
             $milliseconds = (int)substr((string)$milliseconds, 0, 13);
         } elseif ($milliseconds && strlen((string)$milliseconds) < 13) {
-            $milliseconds = (int)str_pad((string)$milliseconds, 13, '0', \STR_PAD_RIGHT);
+            $milliseconds = (int)str_pad((string)$milliseconds, 13, '0');
         }
 
         $epoch_ms = $milliseconds ?: (int)(microtime(true) * 100000);
@@ -397,8 +396,8 @@ class UUIDTool {
 
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split($epoch_ms
                 |> dechex(...)
-                |> (fn($x) => substr($x, 0, 12))
-                |> (fn($x) => str_pad($x, 12, '0', STR_PAD_LEFT) . bin2hex($data)), 4));
+                |> (static fn($x) => substr($x, 0, 12))
+                |> (static fn($x) => str_pad($x, 12, '0', STR_PAD_LEFT) . bin2hex($data)), 4));
     }
     #endregion UUID Generators
 }

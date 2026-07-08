@@ -34,6 +34,7 @@ use Inane\IdForge\Generator\{
     ULIDGenerator,
     UUIDGenerator};
 use Inane\IdForge\IdGeneratorFactory;
+use Inane\Stdlib\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -57,8 +58,15 @@ final class IdGeneratorFactoryTest extends TestCase {
     }
 
     /**
-     * Verifies that `createSnowflake` returns a `SnowflakeIdGenerator` instance
-     * with default configuration values.
+     * Verifies that `createSnowflake` returns a `SnowflakeIdGenerator` instance when specific worker and data centre identifiers are provided along with the default configuration.
+     *
+     * This test ensures that given valid parameters for workers and data centers,
+     * as well as using the SnowflakeConfig by default, result in an instantiated
+     * object of type SnowflakeIdGenerator which adheres to expected behavior according
+     * to defined specifications or constraints. It's a part of validation ensuring
+     * correct implementation within context-specific boundaries.
+     *
+     * @throws InvalidArgumentException
      */
     public function testCreateSnowflake(): void {
         // Arrange & Act: provide worker/datacentre identifiers and default config

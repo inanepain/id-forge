@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace Inane\IdForge\Generator;
 
+use GMP;
 use Inane\IdForge\Config\EncoderConfig;
 use Inane\IdForge\Interface\EncoderInterface;
 use Inane\Stdlib\Exception\InvalidArgumentException;
@@ -50,7 +51,6 @@ use function strtoupper;
 use function substr;
 
 use const STR_PAD_LEFT;
-use const STR_PAD_RIGHT;
 
 /**
  * ULID generator (Crockford's Base32 alphabet)
@@ -62,9 +62,9 @@ use const STR_PAD_RIGHT;
  */
 class ULIDGenerator extends AbstractIdGenerator {
     /** Number of Base32 chars used for the timestamp portion */
-    protected const TIMESTAMP_LENGTH = 10;
+    protected const int TIMESTAMP_LENGTH = 10;
     /** Number of Base32 chars used for the random portion */
-    protected const RANDOM_LENGTH    = 16;
+    protected const int RANDOM_LENGTH = 16;
     /** @var EncoderConfig Alphabet configuration (Crockford by default) */
     protected EncoderConfig $config;
     /** @var bool Whether to use monotonic sequencing within the same ms */
@@ -98,7 +98,7 @@ class ULIDGenerator extends AbstractIdGenerator {
      * @throws RandomException
      */
     public function generate(?int $timestamp = null): string {
-        $timestamp = $timestamp === null ? $this->getTimestamp() : (strlen((string)$timestamp) === 13 ? $timestamp : (int)str_pad((string)$timestamp, 13, '0', STR_PAD_RIGHT));
+        $timestamp = $timestamp === null ? $this->getTimestamp() : (strlen((string)$timestamp) === 13 ? $timestamp : (int)str_pad((string)$timestamp, 13, '0'));
         $randomBytes = $this->getMonotonicRandom($timestamp);
 
         return $this->encodeTimestamp($timestamp) . $this->encodeRandom($randomBytes);
@@ -151,9 +151,9 @@ class ULIDGenerator extends AbstractIdGenerator {
      *
      * @param string $bytes The binary string to be converted into an integer.
      *
-     * @return \GMP The GMP object representation of the integer.
+     * @return GMP The GMP object representation of the integer.
      */
-    protected function bytesToInt(string $bytes): \GMP {
+    protected function bytesToInt(string $bytes): GMP {
         return gmp_init('0x' . bin2hex($bytes));
     }
 
@@ -188,7 +188,7 @@ class ULIDGenerator extends AbstractIdGenerator {
     /**
      * Encodes the given string of bytes into a specific string format using a custom alphabet.
      * This method converts each character in the input string into its binary representation,
-     * concatenates these binary values, and groups the bits into chunks of 5. Each chunk is
+     * concatenates these binary values and groups the bits into chunks of 5. Each chunk is
      * then mapped to a character from a pre-defined alphabet to construct the encoded string.
      *
      * @param string $bytes The input string of bytes to be encoded.
@@ -196,7 +196,13 @@ class ULIDGenerator extends AbstractIdGenerator {
      * @return string The encoded string resulting from the transformation.
      */
     protected function encodeRandom(string $bytes): string {
-        $binary = implode('', array_map(fn($b) => str_pad(decbin(ord($b)), 8, '0', STR_PAD_LEFT), str_split($bytes)));
+        $binary = $bytes
+                |> str_split(...)
+                |> (static fn($x) => array_map(static fn($b) => $b
+                        |> ord(...)
+                        |> decbin(...)
+                        |> (static fn($x) => str_pad($x, 8, '0', STR_PAD_LEFT)), $x))
+                |> (static fn($x) => implode('', $x));
         $encoded = '';
         for($i = 0; $i < 80; $i += 5) {
             $encoded .= $this->config[bindec(substr($binary, $i, 5))];
@@ -207,7 +213,7 @@ class ULIDGenerator extends AbstractIdGenerator {
 
     /**
      * Decodes the timestamp portion of a ULID (Universally Unique Lexicographically Sortable Identifier).
-     * This method validates the ULID format, extracts the timestamp segment, and converts it
+     * This method validates the ULID format, extracts the timestamp segment and converts it
      * from a custom base-32 alphabet to a 48-bit integer representation.
      *
      * @param string $ulid The ULID string to decode, expected to be in uppercase and of valid length.
@@ -236,7 +242,7 @@ class ULIDGenerator extends AbstractIdGenerator {
     /**
      * Decodes a ULID string into its constituent timestamp and random components.
      * The method validates the ULID format based on length and character constraints,
-     * extracts the timestamp by converting the initial characters to a binary timestamp,
+     * extracts the timestamp by converting the initial characters to a binary timestamp
      * and processes the remaining characters to retrieve the random binary string.
      *
      * @param string $ulid The ULID string to be decoded.
@@ -273,20 +279,27 @@ class ULIDGenerator extends AbstractIdGenerator {
         }
         $random = '';
         for($i = 0; $i < 80; $i += 8) {
-            $random .= chr(bindec(substr($randomBinary, $i, 8)));
+            $random .= substr($randomBinary, $i, 8)
+                    |> bindec(...)
+                    |> chr(...);
         }
 
         return ['timestamp' => $timestamp, 'random' => $random];
     }
 
     /**
-     * Encodes a generated value using a provided encoder implementation.
-     * This method uses the given encoder to transform the generated value
-     * into an encoded string representation.
+     * Encodes an object into a specific format using an external encoder service.
      *
-     * @param EncoderInterface $encoder The encoder instance responsible for performing the encoding process.
+     * This method generates some data from within this class (through
+     * the `generate()` function) and then delegates its encoding to another
+     * component that conforms to the EncoderInterface. The resulting encoded string is returned by
+     * invoking the encode() method of the passed-in external encoder service.
      *
-     * @return string The encoded string resulting from the encoding operation.
+     * @param EncoderInterface $encoder An instance of a class implementing the EncoderInterface,
+     *                                  used for transforming data into an alternate encoding format or representation
+     *
+     * @return string The result after applying the provided encoder to the generated object.
+     * @throws RandomException
      */
     public function toEncoded(EncoderInterface $encoder): string {
         return $encoder->encode($this->generate());

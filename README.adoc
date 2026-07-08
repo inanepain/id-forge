@@ -2,7 +2,7 @@
 // tag::tagConfig[]
 :author: Philip Michael Raab
 :email: <philip@cathedral.co.za>
-:description: A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure, and flexible solutions for modern applications.
+:description: A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure and flexible solutions for modern applications.
 :keywords: inanepain, library, unique identifier, id generation, base32, base58, base64, nanoid, snowflakeid, uuid, ulid, php, encoding, cryptography
 :homepage: https://github.com/inanepain/id-forge
 :revnumber: 0.2.0
@@ -84,7 +84,7 @@ $token   = $base58->random(22);
 :toc: auto
 :sectanchors:
 
-This module provides reversible string encoders that share a simple contract, `EncoderInterface`. Implementations cover Base32, Base58, and Base64 (including a URL-safe variant).
+This module provides reversible string encoders that share a simple contract, `EncoderInterface`. Implementations cover Base32, Base58 and Base64 (including a URL-safe variant).
 
 == Contracts and base classes
 
@@ -124,7 +124,7 @@ Namespace: `Inane\IdForge\Encoder\Base32Encoder`
 
 - Alphabet: configurable (RFC 4648 by default when using `EncoderFactory::createBase32()`)
 - Padding: not applied; trailing zero bits are used to complete the last 5-bit group
-- Errors: throws `InvalidArgumentException` if a character is not in the alphabet during `decode()`
+- Errors: throws `InvalidArgumentException` if a character isn’t in the alphabet during `decode()`
 
 .Usage
 [source,php]
@@ -215,7 +215,7 @@ IdForge includes several generators that implement a common contract, `IdGenerat
 
 - `generate(): string` — create a new identifier as a string
 
-Implementations should be fast, low-collision, and safe to use concurrently.
+Implementations should be fast, low-collision and safe to use concurrently.
 
 === `Inane\IdForge\Generator\AbstractIdGenerator`
 
@@ -255,7 +255,7 @@ $uuid2 = IdGeneratorFactory::createUUID()->fromBase64($b64, $base64);
 Namespace: `Inane\IdForge\Generator\ULIDGenerator`
 
 - 26-char Crockford Base32, lexicographically sortable
-- Structure: 48-bit timestamp + 80 bits randomness
+- Structure: 48-bit timestamp + 80 bits of randomness
 - Monotonic mode ensures strict ordering within the same millisecond
 - Key methods:
   - `__construct(?EncoderConfig $config = null, bool $monotonic = false)`
@@ -310,7 +310,7 @@ Namespace: `Inane\IdForge\Generator\SnowflakeIdGenerator`
   - `__construct(int $workerId = 0, int $datacenterId = 0, ?SnowflakeConfig $config = null)`
   - `generate(): string`
   - `toEncoded(EncoderInterface $encoder): string`
-- Behavior: on sequence overflow within the same millisecond, waits for the next millisecond
+- Behaviour: on sequence overflow within the same millisecond, waits for the next millisecond
 - Errors: `RuntimeException` if the clock moves backwards; `InvalidArgumentException` for out-of-range worker/datacenter
 
 .Usage
@@ -682,9 +682,9 @@ dd($ids);
 
 == Error handling
 
-- Most decoders will throw `Inane\Stdlib\Exception\InvalidArgumentException` when the input contains invalid characters or cannot be parsed.
+- Most decoders will throw `Inane\Stdlib\Exception\InvalidArgumentException` when the input contains invalid characters or can’t be parsed.
 - `SnowflakeIdGenerator::generate()` can throw `Inane\Stdlib\Exception\RuntimeException` if it detects a system clock moving backwards.
-- Generators that rely on randomness may throw `Random\RandomException` from PHP core when entropy is not available.
+- Generators that rely on randomness may throw `Random\RandomException` from PHP core when entropy isn’t available.
 
 == When to use which generator
 

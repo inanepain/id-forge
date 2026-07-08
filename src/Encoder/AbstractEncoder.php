@@ -33,7 +33,7 @@ use function random_int;
  * Base class for encoders that use a configurable alphabet
  *
  * Provides accessors for the configured alphabet and its length. Concrete
- * encoders (e.g., Base32/Base58/Base64) extend this class to share
+ * encoders (e.g. Base32/Base58/Base64) extend this class to share
  * configuration handling.
  */
 abstract class AbstractEncoder implements EncoderInterface {
@@ -72,7 +72,7 @@ abstract class AbstractEncoder implements EncoderInterface {
      *
      * Each character is chosen independently with uniform probability from the
      * configured alphabet using PHP's `random_int()`. This avoids modulo bias and
-     * is suitable for tokens, nonces, and IDs where unpredictability matters.
+     * is suitable for tokens, nonces and IDs where unpredictability matters.
      *
      * @param int $length Number of characters to generate (must be >= 0)
      *
@@ -90,7 +90,7 @@ abstract class AbstractEncoder implements EncoderInterface {
         $alphaLen = $this->getAlphabetLength();
 
         // Guard against misconfiguration
-        if ($alphaLen <= 0) throw new InvalidArgumentException('Alphabet must not be empty');
+        if ($alphaLen <= 0) throw new InvalidArgumentException("Alphabet mustn't be empty");
 
         $out = '';
         for ($i = 0; $i < $length; $i++) {

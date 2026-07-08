@@ -2,7 +2,7 @@
 // tag::tagConfig[]
 :author: Philip Michael Raab
 :email: <philip@cathedral.co.za>
-:description: A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure, and flexible solutions for modern applications.
+:description: A lightweight & versatile library for generating and encoding unique identifiers. It provides fast, secure and flexible solutions for modern applications.
 :keywords: inanepain, library, unique identifier, id generation, base32, base58, base64, nanoid, snowflakeid, uuid, ulid, php, encoding, cryptography
 :homepage: https://github.com/inanepain/id-forge
 :revnumber: 0.2.0
@@ -87,9 +87,9 @@ include::./part/uuidtool.adoc[leveloffset=+1]
 
 == Error handling
 
-- Most decoders will throw `Inane\Stdlib\Exception\InvalidArgumentException` when the input contains invalid characters or cannot be parsed.
+- Most decoders will throw `Inane\Stdlib\Exception\InvalidArgumentException` when the input contains invalid characters or can’t be parsed.
 - `SnowflakeIdGenerator::generate()` can throw `Inane\Stdlib\Exception\RuntimeException` if it detects a system clock moving backwards.
-- Generators that rely on randomness may throw `Random\RandomException` from PHP core when entropy is not available.
+- Generators that rely on randomness may throw `Random\RandomException` from PHP core when entropy isn’t available.
 
 == When to use which generator
 

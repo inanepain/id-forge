@@ -42,7 +42,7 @@ interface EncoderInterface {
     /**
      * Encodes a binary-safe string to its textual representation.
      *
-     * Implementations should be pure and must not modify the global state.
+     * Implementations should be pure and mustn't modify the global state.
      *
      * @param string $data Arbitrary binary-safe input data
      *
@@ -55,7 +55,7 @@ interface EncoderInterface {
      *
      * Implementations should validate the input and are encouraged to throw a
      * domain-specific exception (e.g. `InvalidArgumentException`) if the value
-     * cannot be decoded.
+     * can't be decoded.
      *
      * @param string $data Encoded string to decode
      *
