@@ -65,10 +65,10 @@ class SnowflakeIdGenerator extends AbstractIdGenerator {
      */
     public function __construct(int $workerId = 0, int $datacenterId = 0, ?SnowflakeConfig $config = null) {
         $this->config = $config ?? new SnowflakeConfig();
-        if ($workerId > ($workerId < 0 || 1 << $this->config) - 1) {
+        if ($workerId < 0 || $workerId > (1 << $this->config->workerIdBits) - 1) {
             throw new InvalidArgumentException('Worker ID out of range');
         }
-        if ($datacenterId > ($datacenterId < 0 || 1 << $this->config) - 1) {
+        if ($datacenterId < 0 || $datacenterId > (1 << $this->config->datacenterIdBits) - 1) {
             throw new InvalidArgumentException('Datacenter ID out of range');
         }
         $this->workerId = $workerId;
@@ -92,7 +92,7 @@ class SnowflakeIdGenerator extends AbstractIdGenerator {
         }
 
         if ($timestamp === $this->lastTimestamp) {
-            $this->sequence = ($this->sequence + 1) & ((1 << $this->config) - 1);
+            $this->sequence = ($this->sequence + 1) & ((1 << $this->config->sequenceBits) - 1);
             if ($this->sequence === 0) {
                 $timestamp = $this->waitNextMillis($timestamp);
             }
@@ -104,9 +104,9 @@ class SnowflakeIdGenerator extends AbstractIdGenerator {
         $this->lastTimestamp = $timestamp;
 
         // Compose ID by shifting and OR-ing each component into place
-        $id = ($timestamp - $this->config) << ($this->config + $this->config + $this->config);
-        $id |= $this->datacenterId << ($this->config + $this->config);
-        $id |= $this->workerId << $this->config;
+        $id = ($timestamp - $this->config->epoch) << ($this->config->datacenterIdBits + $this->config->workerIdBits + $this->config->sequenceBits);
+        $id |= $this->datacenterId << ($this->config->workerIdBits + $this->config->sequenceBits);
+        $id |= $this->workerId << $this->config->sequenceBits;
         $id |= $this->sequence;
 
         return (string)$id;
