@@ -37,6 +37,11 @@
             "Inane\\IdForge\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Inane\\IdForge\\Tests\\": "tests/"
+        }
+    },
     "config": {
         "preferred-install": "dist",
         "optimize-autoloader": true,
