@@ -37,6 +37,8 @@ use Inane\IdForge\IdGeneratorFactory;
 use Inane\Stdlib\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
+use function strlen;
+
 /**
  * Class IdGeneratorFactoryTest
  *
@@ -46,6 +48,14 @@ use PHPUnit\Framework\TestCase;
  * @package Inane\IdForge\Tests
  */
 final class IdGeneratorFactoryTest extends TestCase {
+    private ?SnowflakeIdGenerator $snowflakeGenerator {
+        get => $this->snowflakeGenerator ??= IdGeneratorFactory::createSnowflake(1, 2, new SnowflakeConfig());
+    }
+
+    private string $snowflakeID {
+        get => $this->snowflakeID ??= $this->snowflakeGenerator->generate();
+    }
+
     /**
      * Verifies that `createNanoid` returns a `NanoidGenerator` instance.
      */
@@ -69,11 +79,31 @@ final class IdGeneratorFactoryTest extends TestCase {
      * @throws InvalidArgumentException
      */
     public function testCreateSnowflake(): void {
-        // Arrange & Act: provide worker/datacentre identifiers and default config
-        $gen = IdGeneratorFactory::createSnowflake(1, 2, new SnowflakeConfig());
-
         // Assert: concrete type matches expectation
-        self::assertInstanceOf(SnowflakeIdGenerator::class, $gen);
+        self::assertInstanceOf(SnowflakeIdGenerator::class, $this->snowflakeGenerator);
+    }
+
+    /**
+     * Validates that the `createSnowflake` method generates a numeric Snowflake ID
+     * using the specified worker, datacenter identifiers, and default configuration.
+     *
+     * @return void
+     *
+     * @throws \Exception If an unexpected error occurs during Snowflake ID generation.
+     */
+    public function testSnowflakeIsNumeric(): void {
+        self::assertContainsOnlyNumeric([$this->snowflakeID], 'SnowflakeID is numeric');
+    }
+
+    /**
+     * Validates that the length of the generated Snowflake ID is exactly 18 characters.
+     *
+     * @return void
+     *
+     * @throws \PHPUnit\Framework\ExpectationFailedException If the Snowflake ID length is not 18.
+     */
+    public function testSnowflakeLengthIs18(): void {
+        self::assertEquals(strlen($this->snowflakeID), 18, 'SnowflakeID length is 18');
     }
 
     /**
