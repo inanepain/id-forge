@@ -53,7 +53,7 @@ class SnowflakeIdGenerator extends AbstractIdGenerator {
     protected int $lastTimestamp = -1;
 
     /**
-     * Constructor method to initialize the Snowflake instance.
+     * Constructor method to initialise the Snowflake instance.
      *
      * @param int                  $workerId     The worker ID, must be within the valid range defined by the configuration.
      * @param int                  $datacenterId The datacenter ID, must be within the valid range defined by the configuration.
