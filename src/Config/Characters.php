@@ -31,7 +31,6 @@ use function str_replace;
  * Character sets and bitmask flags for ID generation alphabets.
  *
  * @version 1.0.0
- * @package Inane\IdForge\Config
  */
 enum Characters: int {
     use EnumBitmaskTrait;

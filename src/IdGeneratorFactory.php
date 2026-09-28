@@ -38,7 +38,6 @@ use Inane\Stdlib\Exception\InvalidArgumentException;
  * This factory provides static methods to create different ID generator instances
  * including Nanoid, Snowflake, UUID and ULID generators with customizable configurations.
  *
- * @package Inane\IdForge
  * @version 1.0.0
  */
 class IdGeneratorFactory {
